@@ -1,7 +1,6 @@
 // 1) Поміняти місцями тексти
 const text1 = document.querySelector('.orange p'); 
 const text2 = document.querySelector('.blue1 p'); 
-// Міняємо тексти місцями
 const temp = text1.textContent;
 text1.textContent = text2.textContent;
 text2.textContent = temp;
@@ -14,33 +13,29 @@ const b = 2; // Мала піввісь
 
 // Функція для обчислення площі овала
 function calculateOvalArea(a, b) {
-    const area = Math.PI * a * b; // Формула площі овала
-    return area.toFixed(2); // Округлення до 2 знаків після коми
+    const area = Math.PI * a * b; 
+    return area.toFixed(2); 
 }
-
-// Додавання результату в кінець контенту сторінки
 function appendAreaToBlock() {
-    const block3 = document.querySelector('.picture'); // Вибір блоку "3"
-    const area = calculateOvalArea(a, b); // Обчислення площі
-    const resultDiv = document.createElement('div'); // Створюємо новий елемент
-    resultDiv.textContent = `Площа овала: ${area}`; // Додаємо текст
+    const block3 = document.querySelector('.picture'); 
+    const area = calculateOvalArea(a, b); 
+    const resultDiv = document.createElement('div'); 
+    resultDiv.textContent = `Площа овала: ${area}`; 
     resultDiv.style.color = 'white';
     block3.appendChild(resultDiv);
 }
-// Виклик функції
 appendAreaToBlock();
 
 
 
 
 // 3-4)
-// Отримання елементів форми
+
 const form = document.createElement('form');
 form.id = 'form-container';
-form.style.display = 'none'; // Спочатку приховуємо форму
-form.style.color = 'white'; // Задаємо початковий стиль
+form.style.color = 'white'; 
 
-// Створення елементів форми
+
 const label = document.createElement('label');
 label.setAttribute('for', 'numberInput');
 label.textContent = 'Введіть натуральне число (макс. 8 символів):';
@@ -56,18 +51,16 @@ const submitButton = document.createElement('button');
 submitButton.type = 'submit';
 submitButton.textContent = 'Знайти дільники';
 
-// Додавання елементів у форму
+
 form.appendChild(label);
 form.appendChild(numberInput);
 form.appendChild(submitButton);
 
-// Додавання форми 
-const targetElement = document.querySelector('.picture'); // Обрати елемент по селектору
+
+const targetElement = document.querySelector('.picture');
 
 targetElement.prepend(form);
-// Ваша існуюча логіка для роботи з формою
-// Функція для знаходження дільників числа
-form.style.display = 'block';
+
 function findDivisors(number) {
     const divisors = [];
     for (let i = 1; i <= number; i++) {
@@ -78,7 +71,7 @@ function findDivisors(number) {
     return divisors;
 }
 
-// Функції для роботи з cookies
+
 function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -98,7 +91,7 @@ function deleteCookie(name) {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;
 }
 
-// Перевірка наявності cookies при завантаженні сторінки
+
 window.onload = () => {
     const storedData = getCookie('divisors');
 
@@ -107,7 +100,7 @@ window.onload = () => {
     
         if (userResponse) {
             deleteCookie('divisors');
-            location.reload(); // Перезавантаження сторінки
+            location.reload(); 
 
     }
     }
@@ -129,7 +122,7 @@ window.onload = () => {
     const savedList = localStorage.getItem('unorderedList');
     if (savedList) {
         const items = JSON.parse(savedList);
-        ul.innerHTML = ''; // Очищення списку
+        ul.innerHTML = '';
         items.forEach((item) => {
             const listItem = document.createElement('li');
             listItem.textContent = item;
@@ -139,9 +132,9 @@ window.onload = () => {
     
 };
 
-// Обробка події відправлення форми
+
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Відміна стандартної поведінки форми
+    event.preventDefault(); 
 
     const number = parseInt(numberInput.value, 10);
     if (isNaN(number) || number < 1||numberInput.value.length>8 ) {
@@ -153,16 +146,16 @@ form.addEventListener('submit', (event) => {
     const result = `Дільники числа ${number}: ${divisors.join(', ')}`;
 
     alert(result);
-    setCookie('divisors', result, 1); // Збереження результату в cookies на 1 день
+    setCookie('divisors', result, 1); 
 });
 
 
 //4)
-// Знаходимо необхідні елементи
+
 const orangeDiv = document.querySelector('.orange p');
 const blueDiv = document.querySelector('.blue1 p');
 
-// Форма з галочками
+
 const newform = document.createElement('form');
 newform.innerHTML = `
     <label>
@@ -174,12 +167,12 @@ newform.innerHTML = `
     </label>
 `;
 
-// Вставляємо форму у ".orange.flexbox" після списку <ul>
+
 const orangeFlexboxDiv = document.querySelector('.orange.flexbox');
 const ulElement = orangeFlexboxDiv.querySelector('p');
 ulElement.insertAdjacentElement('afterend', newform);
 
-// Додавання обробників події mouseover
+
 orangeDiv.addEventListener('mouseover', () => {
     if (document.getElementById('alignOrange').checked) {
         orangeDiv.style.textAlign = 'right';
@@ -196,7 +189,7 @@ if (blueDiv) {
     });
 }
 
-// Обробка зняття галочки
+
 newform.addEventListener('change', (event) => {
     if (event.target.id === 'alignOrange' && !event.target.checked) {
         orangeDiv.style.textAlign = '';
@@ -212,11 +205,10 @@ newform.addEventListener('change', (event) => {
 
 //5)
 
-// Знаходимо всі контейнери, які можуть містити блоки
+
 const containers = document.querySelectorAll('.picture, .orange, .blue');
 
 containers.forEach((listContainer) => {
-    // Створюємо єдине посилання для створення списку
     const link = document.createElement('a');
     link.href = '#';
     link.textContent = 'Відкрити/Створити список';
@@ -228,17 +220,17 @@ containers.forEach((listContainer) => {
     listContainer.prepend(link);
 
 
-    // Обробка кліку на посилання
+
     link.addEventListener('click', (event) => {
         event.preventDefault();
 
-        // Перевірка, чи список і кнопки вже створені
+    
         if (listContainer.querySelector('.dynamic-list-container')) {
             alert('Список уже створено/відкрито!');
             return;
         }
 
-        // Створення контейнера для списку і кнопок
+    
         const container = document.createElement('div');
         container.className = 'dynamic-list-container';
         container.style.marginTop = '20px';
@@ -266,7 +258,7 @@ containers.forEach((listContainer) => {
         container.appendChild(deleteButton);
         listContainer.prepend(container);
 
-        // Завантаження списку з localStorage
+
         const savedItems = localStorage.getItem(`unorderedList-${listContainer.className}`);
         if (savedItems) {
             const items = JSON.parse(savedItems);
@@ -282,7 +274,7 @@ containers.forEach((listContainer) => {
             });
         }
 
-        // Додавання нового пункту до списку
+   
         ul.addEventListener('dblclick', () => {
             const listItem = document.createElement('li');
             const input = document.createElement('input');
@@ -294,7 +286,7 @@ containers.forEach((listContainer) => {
             ul.appendChild(listItem);
         });
 
-        // Збереження списку в localStorage
+
         saveButton.addEventListener('click', () => {
             const items = Array.from(ul.children)
                 .map((li) => {
@@ -307,7 +299,6 @@ containers.forEach((listContainer) => {
         });
         
 
-        // Видалення списку з localStorage
         deleteButton.addEventListener('click', () => {
             localStorage.removeItem(`unorderedList-${listContainer.className}`);
             ul.innerHTML = ''; 
